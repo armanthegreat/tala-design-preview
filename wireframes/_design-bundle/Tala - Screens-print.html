@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tala — Screens (PDF)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Vazirmatn:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      background: #f0eee9;
+      color: #1F0E12;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    *::-webkit-scrollbar { width: 0; height: 0; }
+    button { font-family: inherit; cursor: default; }
+    img { -webkit-user-drag: none; }
+
+    .page {
+      width: 297mm;        /* A4 landscape */
+      height: 210mm;
+      padding: 12mm 16mm;
+      background: #f0eee9;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+
+    .page-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding-bottom: 8mm; direction: ltr;
+    }
+    .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.42em; font-size: 22px; color: #1F0E12;
+    }
+    .pg-eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.32em; font-size: 10px; color: #8A4A55;
+    }
+    .pg-title {
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 22px; font-weight: 200; color: #1F0E12;
+      letter-spacing: -0.01em; line-height: 1.2;
+      margin: 2px 0 0; direction: rtl;
+    }
+    .pg-sub {
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 12px; color: #8A6B5E; margin-top: 2px;
+      direction: rtl;
+    }
+
+    .row { display: flex; gap: 14mm; flex: 1; align-items: center; justify-content: center; }
+    .phone-cell {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .phone-cell .label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px; letter-spacing: 0.32em; color: #8A4A55;
+      direction: ltr;
+    }
+    .phone-cell .label-fa {
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 12px; color: #1F0E12; font-weight: 500;
+    }
+
+    /* Each phone is a fixed 380x822px; we scale via transform */
+    .phone-scale {
+      transform: scale(var(--s, 0.7));
+      transform-origin: top center;
+      width: 380px;
+      /* Reserve scaled height so layout doesn't overlap */
+      height: calc(822px * var(--s, 0.7));
+    }
+
+    .page-foot {
+      direction: ltr;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 9.5px; letter-spacing: 0.3em;
+      color: rgba(31,14,18,0.55);
+      display: flex; justify-content: space-between;
+      padding-top: 6mm;
+    }
+
+    @page { size: A4 landscape; margin: 0; }
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="pdf-root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="components/tweaks-panel.jsx"></script>
+  <script type="text/babel" src="components/ui.jsx"></script>
+  <script type="text/babel" src="components/data.jsx"></script>
+  <script type="text/babel" src="../gallery/screen-gallery.jsx"></script>
+  <script type="text/babel" src="../showroom/screen-showroom.jsx"></script>
+  <script type="text/babel" src="../price-board/screen-price.jsx"></script>
+  <script type="text/babel" src="../favorites/screen-favorites.jsx"></script>
+  <script type="text/babel" src="../gallery/screen-story.jsx"></script>
+  <script type="text/babel" src="components/app.jsx"></script>
+
+  <script type="text/babel">
+    // Print-version phone — same chrome, no scroll, full-content (capped at frame height).
+    function PrintPhone({ dark, activeTab, children, hideNav, overlay }) {
+      return (
+        <div style={{
+          width: 380, height: 822, borderRadius: 52, overflow: 'hidden',
+          position: 'relative', background: dark ? '#0E060A' : '#FAF4EA',
+          boxShadow: '0 18px 36px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08)',
+          border: '6px solid #0a0608',
+          direction: 'rtl',
+          fontFamily: 'Vazirmatn, system-ui, sans-serif',
+        }}>
+          <DynamicIsland />
+          <StatusBar dark={dark} />
+          <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+            {children}
+          </div>
+          {!hideNav && <BottomNav active={activeTab} onChange={() => {}} />}
+          {overlay}
+          <div style={{
+            position: 'absolute', bottom: 8, left: 0, right: 0,
+            display: 'flex', justifyContent: 'center', zIndex: 60,
+            pointerEvents: 'none',
+          }}>
+            <div style={{
+              width: 134, height: 5, borderRadius: 100,
+              background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.28)',
+            }} />
+          </div>
+        </div>
+      );
+    }
+
+    function Page({ eyebrow, title, subtitle, children, n, total }) {
+      return (
+        <div className="page">
+          <div className="page-head">
+            <div>
+              <div className="pg-eyebrow">{eyebrow}</div>
+              <div className="pg-title">{title}</div>
+              {subtitle && <div className="pg-sub">{subtitle}</div>}
+            </div>
+            <div className="brand">TALA</div>
+          </div>
+          <div className="row">
+            {children}
+          </div>
+          <div className="page-foot">
+            <span>TALA · FINE JEWELRY · CLIENT APP</span>
+            <span>PAGE {n} / {total}</span>
+          </div>
+        </div>
+      );
+    }
+
+    function Cell({ label, labelFa, scale = 0.72, children }) {
+      return (
+        <div className="phone-cell">
+          <div className="phone-scale" style={{ '--s': scale }}>
+            {children}
+          </div>
+          <div className="label-fa">{labelFa}</div>
+          <div className="label">{label}</div>
+        </div>
+      );
+    }
+
+    function PDFDeck() {
+      const TOTAL = 7;
+      return (
+        <React.Fragment>
+          {/* Cover */}
+          <div className="page" style={{
+            background: 'radial-gradient(ellipse at 50% -20%, #3a1b25 0%, #1f0f15 40%, #0a0608 100%)',
+            color: '#F0DFC0',
+          }}>
+            <div className="page-head" style={{ borderBottom: '0.5px solid rgba(245,235,224,0.15)' }}>
+              <div style={{
+                fontFamily: 'Bebas Neue, sans-serif',
+                letterSpacing: '0.32em', fontSize: 10, color: '#C9A24C', direction: 'ltr',
+              }}>FINE JEWELRY · CLIENT APP</div>
+              <div style={{
+                fontFamily: 'Vazirmatn', fontSize: 11, color: 'rgba(245,235,224,0.5)', direction: 'ltr',
+              }}>Design Review · ۱۴۰۴</div>
+            </div>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column',
+                          alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+              <div style={{
+                fontFamily: 'Bebas Neue, sans-serif',
+                fontSize: 132, letterSpacing: '0.42em', color: '#F0DFC0',
+                paddingRight: '0.42em', lineHeight: 1, direction: 'ltr',
+              }}>TALA</div>
+              <div style={{
+                fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic',
+                fontSize: 28, color: '#C9A24C', marginTop: 18,
+              }}>Crafted with passion, since ۱۳۸۰.</div>
+              <div style={{
+                fontFamily: 'Vazirmatn', fontSize: 16, fontWeight: 300,
+                color: 'rgba(245,235,224,0.7)', marginTop: 14, maxWidth: 480,
+                lineHeight: 1.7, direction: 'rtl',
+              }}>اپلیکیشنِ ویترینِ جواهرفروشی تالا<br/>پنج صفحه‌ی اصلی، سه روایتِ ویترین، یک نمای داستان</div>
+            </div>
+            <div style={{
+              fontFamily: 'Bebas Neue, sans-serif',
+              fontSize: 9.5, letterSpacing: '0.3em', color: 'rgba(245,235,224,0.4)',
+              display: 'flex', justifyContent: 'space-between', direction: 'ltr',
+              borderTop: '0.5px solid rgba(245,235,224,0.15)', paddingTop: '6mm',
+            }}>
+              <span>iPHONE · RTL FARSI · MOBILE WEB</span>
+              <span>PAGE 1 / {TOTAL}</span>
+            </div>
+          </div>
+
+          {/* Page 2: Showroom + Price Board */}
+          <Page eyebrow="CORE SCREENS · 01"
+                title="ویترین و قیمت روز"
+                subtitle="The brand-led landing page and the daily price board"
+                n={2} total={TOTAL}>
+            <Cell label="A · SHOWROOM" labelFa="ویترین">
+              <PrintPhone dark activeTab="showroom"><ShowroomScreen layout="editorial" /></PrintPhone>
+            </Cell>
+            <Cell label="B · PRICE BOARD" labelFa="قیمت روز">
+              <PrintPhone dark activeTab="price"><PriceBoardScreen /></PrintPhone>
+            </Cell>
+          </Page>
+
+          {/* Page 3: Gallery + Favorites */}
+          <Page eyebrow="CORE SCREENS · 02"
+                title="گالری و نشان‌شده‌ها"
+                subtitle="Instagram-style feed and the saved items board"
+                n={3} total={TOTAL}>
+            <Cell label="C · GALLERY" labelFa="گالری">
+              <PrintPhone activeTab="gallery"><GalleryScreen /></PrintPhone>
+            </Cell>
+            <Cell label="D · FAVORITES" labelFa="نشان‌شده‌ها">
+              <PrintPhone activeTab="favorites"><FavoritesScreen /></PrintPhone>
+            </Cell>
+            <Cell label="E · PROFILE" labelFa="حساب">
+              <PrintPhone activeTab="profile"><ProfileScreen /></PrintPhone>
+            </Cell>
+          </Page>
+
+          {/* Page 4: Showroom variations */}
+          <Page eyebrow="SHOWROOM · EDITORIAL DIRECTIONS"
+                title="سه روایت از ویترین"
+                subtitle="Three editorial layout directions for the brand landing"
+                n={4} total={TOTAL}>
+            <Cell label="A · EDITORIAL" labelFa="هنری">
+              <PrintPhone dark activeTab="showroom"><ShowroomScreen layout="editorial" /></PrintPhone>
+            </Cell>
+            <Cell label="B · MOSAIC" labelFa="موزاییکی">
+              <PrintPhone dark activeTab="showroom"><ShowroomScreen layout="gallery" /></PrintPhone>
+            </Cell>
+            <Cell label="C · MAGAZINE" labelFa="مجله‌ای">
+              <PrintPhone activeTab="showroom"><ShowroomScreen layout="magazine" /></PrintPhone>
+            </Cell>
+          </Page>
+
+          {/* Page 5: Story transition */}
+          <Page eyebrow="STORY VIEWER · FULLSCREEN TRANSITION"
+                title="باز شدن یک پست به نمای داستان"
+                subtitle="Tap the expand icon — the post lifts, scales, and reveals story chrome"
+                n={5} total={TOTAL}>
+            <Cell label="1 · GALLERY" labelFa="گالری">
+              <PrintPhone activeTab="gallery"><GalleryScreen /></PrintPhone>
+            </Cell>
+            <Cell label="2 · LIFTING" labelFa="بلندشدن">
+              <PrintPhone dark hideNav><StoryTransition progress={0.22} /></PrintPhone>
+            </Cell>
+            <Cell label="3 · EXPANDING" labelFa="گسترش">
+              <PrintPhone dark hideNav><StoryTransition progress={0.62} /></PrintPhone>
+            </Cell>
+            <Cell label="4 · STORY" labelFa="داستان">
+              <PrintPhone dark hideNav><StoryViewer /></PrintPhone>
+            </Cell>
+          </Page>
+
+          {/* Page 6: Design system — palette + type */}
+          <Page eyebrow="DESIGN SYSTEM · FOUNDATIONS"
+                title="رنگ و تایپوگرافی"
+                subtitle="Palette tokens and type system used across all screens"
+                n={6} total={TOTAL}>
+            <div style={{ display: 'flex', gap: '8mm', alignItems: 'stretch',
+                          width: '100%', height: '100%', padding: '4mm 12mm' }}>
+              {/* Palette */}
+              <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column' }}>
+                <div className="pg-eyebrow" style={{ marginBottom: 8 }}>PALETTE</div>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: 8, flex: 1,
+                }}>
+                  {[
+                    { name: 'Base',        hex: '#0E060A' },
+                    { name: 'Wine 900',    hex: '#150A10' },
+                    { name: 'Wine 800',    hex: '#2A1218' },
+                    { name: 'Wine 600',    hex: '#4A1825' },
+                    { name: 'Gold',        hex: '#C9A24C', text: '#1F0E12' },
+                    { name: 'Gold soft',   hex: '#E8D5A0', text: '#1F0E12' },
+                    { name: 'Champagne',   hex: '#F0DFC0', text: '#1F0E12' },
+                    { name: 'Cream',       hex: '#FAF4EA', text: '#1F0E12', border: true },
+                    { name: 'Text dark',   hex: '#1F0E12' },
+                    { name: 'Text muted',  hex: '#8A6B5E' },
+                    { name: 'Up · green',  hex: '#5DBB87' },
+                    { name: 'Down · red',  hex: '#E07474' },
+                  ].map(s => (
+                    <div key={s.hex} style={{
+                      background: s.hex, borderRadius: 4,
+                      aspectRatio: '1 / 1',
+                      display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+                      padding: 8,
+                      color: s.text || '#F0DFC0',
+                      fontFamily: 'Bebas Neue, sans-serif', letterSpacing: '0.04em',
+                      border: s.border ? '0.5px solid rgba(31,14,18,0.12)' : 'none',
+                    }}>
+                      <div style={{ fontSize: 9.5, opacity: 0.7 }}>{s.name}</div>
+                      <div style={{ fontSize: 11, marginTop: 2 }}>{s.hex}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Type */}
+              <div style={{ flex: 1, paddingRight: 12, direction: 'rtl' }}>
+                <div className="pg-eyebrow" style={{ direction: 'ltr', textAlign: 'right' }}>TYPOGRAPHY</div>
+                <div style={{ marginTop: 12 }}>
+                  <div style={{
+                    fontFamily: 'Bebas Neue, sans-serif', fontSize: 64,
+                    letterSpacing: '0.4em', color: '#1F0E12', direction: 'ltr', textAlign: 'right',
+                  }}>TALA</div>
+                  <div className="pg-eyebrow" style={{ direction: 'ltr', textAlign: 'right' }}>BEBAS NEUE · DISPLAY</div>
+                </div>
+                <hr style={{ border: 0, borderTop: '0.5px solid rgba(31,14,18,0.15)', margin: '14px 0' }} />
+                <div>
+                  <div style={{
+                    fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic',
+                    fontSize: 30, color: '#1F0E12', lineHeight: 1.1, direction: 'ltr', textAlign: 'right',
+                  }}>“Crafted with passion.”</div>
+                  <div className="pg-eyebrow" style={{ direction: 'ltr', textAlign: 'right', marginTop: 4 }}>CORMORANT · EDITORIAL ACCENTS</div>
+                </div>
+                <hr style={{ border: 0, borderTop: '0.5px solid rgba(31,14,18,0.15)', margin: '14px 0' }} />
+                <div>
+                  <div style={{
+                    fontFamily: 'Vazirmatn, sans-serif', fontSize: 24, fontWeight: 200,
+                    color: '#1F0E12', letterSpacing: '-0.02em',
+                  }}>به ویترین تالا خوش آمدید</div>
+                  <div style={{
+                    fontFamily: 'Vazirmatn, sans-serif', fontSize: 13, color: '#3D2026',
+                    marginTop: 4, lineHeight: 1.7, fontWeight: 300,
+                  }}>گزیده‌ای از زیورآلات دست‌سازِ ایرانی، روایتی از ذوق و هنر.</div>
+                  <div className="pg-eyebrow" style={{ direction: 'ltr', textAlign: 'right', marginTop: 6 }}>VAZIRMATN · PERSIAN BODY</div>
+                </div>
+              </div>
+            </div>
+          </Page>
+
+          {/* Page 7: Closing */}
+          <div className="page" style={{
+            background: '#0E060A', color: '#F0DFC0',
+            justifyContent: 'space-between',
+          }}>
+            <div className="page-head" style={{ borderBottom: '0.5px solid rgba(245,235,224,0.15)' }}>
+              <div style={{
+                fontFamily: 'Bebas Neue, sans-serif',
+                letterSpacing: '0.32em', fontSize: 10, color: '#C9A24C', direction: 'ltr',
+              }}>NEXT STEPS</div>
+              <div className="brand" style={{ color: '#C9A24C' }}>TALA</div>
+            </div>
+            <div style={{
+              flex: 1, display: 'flex', flexDirection: 'column',
+              justifyContent: 'center', padding: '0 18mm', direction: 'rtl',
+            }}>
+              <div style={{
+                fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic',
+                fontSize: 36, color: '#C9A24C', lineHeight: 1.2,
+                direction: 'ltr', textAlign: 'right', marginBottom: 22,
+              }}>What comes next</div>
+              <div style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14mm 12mm',
+                fontFamily: 'Vazirmatn, sans-serif', fontSize: 14, lineHeight: 1.7,
+                color: 'rgba(245,235,224,0.85)', fontWeight: 300,
+              }}>
+                <div>
+                  <div style={{ fontFamily: 'Bebas Neue', fontSize: 11, letterSpacing: '0.32em', color: '#C9A24C', marginBottom: 6, direction: 'ltr' }}>01 · IMAGERY</div>
+                  جایگزینی تصاویرِ نمونه با عکس‌های واقعی از کارگاهِ تالا — ترجیحاً سبک ادیتوریال، نورِ گرم، پس‌زمینه‌ی ساده.
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'Bebas Neue', fontSize: 11, letterSpacing: '0.32em', color: '#C9A24C', marginBottom: 6, direction: 'ltr' }}>02 · COPY</div>
+                  بازنویسی کپی‌های نمونه با لحنِ نهایی برند ـ نام مجموعه‌ها، عناوینِ بخش‌ها، توضیحاتِ پست‌ها.
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'Bebas Neue', fontSize: 11, letterSpacing: '0.32em', color: '#C9A24C', marginBottom: 6, direction: 'ltr' }}>03 · FILTERS</div>
+                  طراحیِ شیتِ فیلتر برای گالری ـ تگ‌ها، بازه‌ی قیمت، و مرتب‌سازی.
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'Bebas Neue', fontSize: 11, letterSpacing: '0.32em', color: '#C9A24C', marginBottom: 6, direction: 'ltr' }}>04 · LOGIN</div>
+                  جریانِ ورود با شماره‌ی موبایل و کد ـ صفحاتِ ساده و کم‌اصطکاک.
+                </div>
+              </div>
+            </div>
+            <div style={{
+              fontFamily: 'Bebas Neue, sans-serif',
+              fontSize: 9.5, letterSpacing: '0.3em', color: 'rgba(245,235,224,0.4)',
+              display: 'flex', justifyContent: 'space-between', direction: 'ltr',
+              borderTop: '0.5px solid rgba(245,235,224,0.15)', paddingTop: '6mm',
+            }}>
+              <span>TALA · DESIGN REVIEW · ۱۴۰۴</span>
+              <span>PAGE {TOTAL} / {TOTAL}</span>
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    }
+
+    function mountPDF() {
+      if (typeof window.ShowroomScreen !== 'function' ||
+          typeof window.StoryViewer !== 'function' ||
+          typeof window.BottomNav !== 'function') {
+        return setTimeout(mountPDF, 30);
+      }
+      const root = ReactDOM.createRoot(document.getElementById('pdf-root'));
+      root.render(<PDFDeck />);
+
+      // After render, wait for fonts + images, then auto-print
+      Promise.all([
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        new Promise(r => setTimeout(r, 1500)),
+      ]).then(() => {
+        if (window.location.search.includes('autoprint=1')) {
+          window.print();
+        }
+      });
+    }
+    mountPDF();
+  </script>
+</body>
+</html>
