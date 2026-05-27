@@ -14,10 +14,10 @@ function GalleryHeader({ onFilter }) {
         padding: '52px 20px 8px',
       }}>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 28, letterSpacing: '0.12em',
-          color: '#1F0E12', fontWeight: 400,
-        }}>TALA</div>
+          fontFamily: 'Vazirmatn, sans-serif',
+          fontSize: 26, letterSpacing: '0.18em',
+          color: '#1F0E12', fontWeight: 300,
+        }}>تالا</div>
         <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
           <button style={iconBtn}><IconSearch size={20} /></button>
           <button style={iconBtn} onClick={onFilter}><IconFilter size={20} /></button>
@@ -69,9 +69,9 @@ function FeedPost({ post, idx, onExpand }) {
             width: '100%', height: '100%', borderRadius: 999,
             background: '#FAF4EA',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: '"Bebas Neue", sans-serif',
-            fontSize: 14, letterSpacing: '0.08em', color: '#1F0E12',
-          }}>T</div>
+            fontFamily: 'Vazirmatn, sans-serif',
+            fontSize: 15, fontWeight: 500, color: '#1F0E12',
+          }}>ت</div>
         </div>
         <div style={{ flex: 1, lineHeight: 1.2 }}>
           <div style={{ fontFamily: 'Vazirmatn, sans-serif', fontSize: 13.5, fontWeight: 600, color: '#1F0E12' }}>

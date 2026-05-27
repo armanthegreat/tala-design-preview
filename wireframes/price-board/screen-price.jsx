@@ -62,8 +62,8 @@ function PriceRow({ item }) {
           padding: '5px 9px 5px 7px', borderRadius: 999,
           background: isUp ? 'rgba(93, 187, 135, 0.14)' : 'rgba(207, 64, 64, 0.14)',
           color: isUp ? '#5DBB87' : '#E07474',
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 12, letterSpacing: '0.04em',
+          fontFamily: 'Vazirmatn, sans-serif',
+          fontSize: 12, fontWeight: 500, letterSpacing: '0.04em',
         }}>
           {isUp ? <IconUp size={12} /> : <IconDown size={12} />}
           <span>{toFa(Math.abs(item.change).toFixed(2))}٪</span>
@@ -72,9 +72,9 @@ function PriceRow({ item }) {
 
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
         <span style={{
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 36, color: '#F5EBE0', fontWeight: 400,
-          letterSpacing: '0.02em', lineHeight: 1,
+          fontFamily: 'Vazirmatn, sans-serif',
+          fontSize: 32, color: '#F5EBE0', fontWeight: 300,
+          letterSpacing: '0.01em', lineHeight: 1,
         }}>{item.value}</span>
         <span style={{
           fontFamily: 'Vazirmatn, sans-serif', fontSize: 11,
@@ -134,10 +134,10 @@ function PriceBoardScreen() {
           }}>زنده ـ به‌روزرسانی ۱۴:۰۳</span>
         </div>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif',
+          fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 11, color: '#C9A24C',
           letterSpacing: '0.4em', marginTop: 22,
-        }}>قیمت روز · PRICE BOARD</div>
+        }}>قیمت روز · بازار</div>
         <h1 style={{
           fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 28, color: '#F5EBE0', fontWeight: 200,

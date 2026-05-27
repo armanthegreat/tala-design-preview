@@ -71,9 +71,9 @@ function StoryViewer({ post = FEED[1], imageIdx: startIdx = 0, totalImages = 4, 
               width: '100%', height: '100%', borderRadius: 999,
               background: '#0A0508',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: '"Bebas Neue", sans-serif',
-              fontSize: 12, letterSpacing: '0.08em', color: '#F0DFC0',
-            }}>T</div>
+              fontFamily: 'Vazirmatn, sans-serif',
+              fontSize: 13, fontWeight: 500, color: '#F0DFC0',
+            }}>ت</div>
           </div>
           <div style={{ flex: 1, lineHeight: 1.2 }}>
             <div style={{
@@ -132,9 +132,9 @@ function StoryViewer({ post = FEED[1], imageIdx: startIdx = 0, totalImages = 4, 
         padding: '0 22px 28px',
       }}>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif', fontSize: 10.5,
-          color: '#E8C872', letterSpacing: '0.38em', marginBottom: 10,
-        }}>{post.subtitle.replace('مجموعه‌ی', '').trim().toUpperCase().replace(/[^\x00-\x7F\s]/g, '')} · COLLECTION</div>
+          fontFamily: 'Vazirmatn, sans-serif', fontSize: 10.5,
+          color: '#E8C872', letterSpacing: '0.34em', marginBottom: 10,
+        }}>{post.subtitle} · از تالا</div>
         <div style={{
           fontFamily: 'Vazirmatn, sans-serif', fontSize: 26,
           color: '#F5EBE0', fontWeight: 200, letterSpacing: '-0.02em',

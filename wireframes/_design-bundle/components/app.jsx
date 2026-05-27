@@ -247,8 +247,8 @@ function ProfileScreen() {
             width: '100%', height: '100%', borderRadius: 999,
             background: '#FAF4EA',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: '"Bebas Neue", sans-serif',
-            fontSize: 32, letterSpacing: '0.06em', color: '#1F0E12',
+            fontFamily: 'Vazirmatn, sans-serif',
+            fontSize: 36, fontWeight: 400, color: '#1F0E12',
           }}>س</div>
         </div>
         <div style={{
@@ -301,9 +301,9 @@ function ProfileScreen() {
 
       <div style={{
         textAlign: 'center', marginTop: 38,
-        fontFamily: '"Bebas Neue", sans-serif', fontSize: 11,
+        fontFamily: 'Vazirmatn, sans-serif', fontSize: 11,
         color: '#8A6B5E', letterSpacing: '0.4em',
-      }}>TALA · از ۱۳۸۰</div>
+      }}>تالا · از ۱۳۸۰</div>
     </div>
   );
 }

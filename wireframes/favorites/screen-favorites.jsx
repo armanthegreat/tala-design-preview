@@ -23,9 +23,9 @@ function FavoriteCard({ item }) {
       </div>
       <div style={{ padding: '10px 12px 14px' }}>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif',
-          fontSize: 9, color: '#8A6B5E',
-          letterSpacing: '0.28em', marginBottom: 4,
+          fontFamily: 'Vazirmatn, sans-serif',
+          fontSize: 9.5, color: '#8A6B5E',
+          letterSpacing: '0.22em', marginBottom: 4,
         }}>{item.code}</div>
         <div style={{
           fontFamily: 'Vazirmatn, sans-serif',
@@ -45,10 +45,10 @@ function FavoritesScreen() {
     }}>
       <div style={{ padding: '20px 22px 24px' }}>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif',
+          fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 11, color: '#8A4A55',
           letterSpacing: '0.4em', marginBottom: 8,
-        }}>FAVORITES</div>
+        }}>گزیده</div>
         <h1 style={{
           fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 30, color: '#1F0E12', fontWeight: 200,

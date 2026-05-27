@@ -5,18 +5,15 @@ function TalaWordmark({ color = '#F0DFC0', size = 1 }) {
   return (
     <div style={{ textAlign: 'center', lineHeight: 1 }}>
       <div style={{
-        fontFamily: '"Bebas Neue", sans-serif',
-        fontSize: 44 * size, letterSpacing: '0.42em',
-        color, fontWeight: 400,
-        paddingRight: '0.42em', // optical centering for tracked text
-      }}>TALA</div>
+        fontFamily: 'Vazirmatn, sans-serif',
+        fontSize: 40 * size, letterSpacing: '0.32em',
+        color, fontWeight: 300,
+      }}>تالا</div>
       <div style={{
         fontFamily: 'Vazirmatn, sans-serif',
-        fontSize: 9 * size, letterSpacing: '0.5em',
-        color, opacity: 0.7, marginTop: 6 * size,
-        paddingRight: '0.5em',
-        direction: 'ltr',
-      }}>FINE JEWELRY</div>
+        fontSize: 10 * size, letterSpacing: '0.5em',
+        color, opacity: 0.7, marginTop: 8 * size,
+      }}>جواهراتِ نفیس</div>
     </div>
   );
 }
@@ -46,10 +43,10 @@ function ShowroomEditorial() {
           padding: '0 24px 36px', textAlign: 'center',
         }}>
           <div style={{
-            fontFamily: '"Bebas Neue", sans-serif',
+            fontFamily: 'Vazirmatn, sans-serif',
             color: '#C9A24C', fontSize: 11, letterSpacing: '0.4em',
             marginBottom: 12,
-          }}>SIGNATURE COLLECTION</div>
+          }}>مجموعه‌ی ویژه</div>
           <h1 style={{
             fontFamily: 'Vazirmatn, sans-serif',
             color: '#F5EBE0', fontSize: 30, fontWeight: 200,
@@ -65,7 +62,7 @@ function ShowroomEditorial() {
 
       {/* COLLECTIONS — vertical featured */}
       <section style={{ background: '#1A0E12', padding: '36px 0 8px' }}>
-        <SectionHeader eyebrow="COLLECTIONS" title="مجموعه‌های روز" />
+        <SectionHeader eyebrow="مجموعه‌ها" title="مجموعه‌های روز" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '0 20px' }}>
           {COLLECTIONS.map((c, i) => (
             <div key={c.id} style={{
@@ -123,10 +120,10 @@ function ShowroomGallery() {
       <section style={{ position: 'relative', background: '#150A10', paddingTop: 56 }}>
         <div style={{ padding: '32px 24px 24px' }}>
           <div style={{
-            fontFamily: '"Bebas Neue", sans-serif',
+            fontFamily: 'Vazirmatn, sans-serif',
             fontSize: 11, color: '#C9A24C',
             letterSpacing: '0.4em', marginBottom: 14,
-          }}>SHOWROOM · از ۱۳۸۰</div>
+          }}>ویترین تالا · از ۱۳۸۰</div>
           <h1 style={{
             fontFamily: 'Vazirmatn, sans-serif',
             fontSize: 38, color: '#F5EBE0', fontWeight: 200,
@@ -185,16 +182,16 @@ function ShowroomMagazine() {
       <section style={{ background: '#FBF5EB', paddingTop: 60, paddingBottom: 40 }}>
         <div style={{ padding: '0 24px' }}>
           <div style={{
-            fontFamily: '"Bebas Neue", sans-serif',
+            fontFamily: 'Vazirmatn, sans-serif',
             fontSize: 11, color: '#8A4A55',
             letterSpacing: '0.5em', marginBottom: 16,
-          }}>ISSUE 02 · ۱۴۰۴</div>
+          }}>شماره‌ی دوم · ۱۴۰۴</div>
           <h1 style={{
-            fontFamily: '"Cormorant Garamond", serif',
-            fontStyle: 'italic', fontWeight: 400,
+            fontFamily: 'Vazirmatn, sans-serif',
+            fontWeight: 200,
             fontSize: 64, color: '#1F0E12', lineHeight: 0.95,
             margin: 0, letterSpacing: '-0.02em',
-          }}>Tala</h1>
+          }}>تالا</h1>
           <div style={{
             fontFamily: 'Vazirmatn, sans-serif',
             fontSize: 30, color: '#1F0E12', fontWeight: 200,
@@ -217,8 +214,7 @@ function ShowroomMagazine() {
             fontSize: 26, color: '#1F0E12', fontWeight: 300,
             margin: 0, lineHeight: 1.3, letterSpacing: '-0.01em',
           }}>
-            رویای یاقوت ـ
-            <span style={{ fontFamily: '"Cormorant Garamond", serif', fontStyle: 'italic', fontWeight: 500 }}> Sapphire Dreams</span>
+            رویای <span style={{ color: '#8A4A55', fontWeight: 500 }}>یاقوت کبود</span>
           </h2>
           <p style={{
             fontFamily: 'Vazirmatn, sans-serif',
@@ -264,11 +260,11 @@ function BrandStory({ dark = '#150A10' }) {
           margin: '0 auto 24px',
         }} />
         <div style={{
-          fontFamily: '"Cormorant Garamond", serif',
-          fontStyle: 'italic', fontSize: 24,
-          color: '#C9A24C', fontWeight: 400,
-          marginBottom: 18, lineHeight: 1.4,
-        }}>“Crafted with passion,<br/>since 1380.”</div>
+          fontFamily: 'Vazirmatn, sans-serif',
+          fontSize: 22,
+          color: '#C9A24C', fontWeight: 300,
+          marginBottom: 18, lineHeight: 1.5,
+        }}>«ساخته‌شده با عشق،<br/>از سال ۱۳۸۰.»</div>
         <p style={{
           fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 13.5, color: 'rgba(245, 235, 224, 0.72)',
@@ -284,7 +280,7 @@ function BrandStory({ dark = '#150A10' }) {
 function FeaturedRow() {
   return (
     <section style={{ background: '#1A0E12', padding: '8px 0 36px' }}>
-      <SectionHeader eyebrow="FEATURED PIECES" title="قطعه‌های برگزیده" />
+      <SectionHeader eyebrow="گزیده" title="قطعه‌های برگزیده" />
       <div style={{
         display: 'flex', gap: 12, padding: '0 20px',
         overflowX: 'auto', WebkitOverflowScrolling: 'touch',
@@ -299,9 +295,9 @@ function FeaturedRow() {
             <Img src={p.image} ratio={1} />
             <div style={{ padding: '12px 12px 14px' }}>
               <div style={{
-                fontFamily: '"Bebas Neue", sans-serif',
-                fontSize: 9.5, color: '#C9A24C',
-                letterSpacing: '0.24em', marginBottom: 6,
+                fontFamily: 'Vazirmatn, sans-serif',
+                fontSize: 10, color: '#C9A24C',
+                letterSpacing: '0.2em', marginBottom: 6,
               }}>{p.code}</div>
               <div style={{
                 fontFamily: 'Vazirmatn, sans-serif', fontSize: 13,
@@ -329,10 +325,10 @@ function ShowroomVisit() {
         background: 'linear-gradient(180deg, rgba(74,24,37,0.18) 0%, rgba(20,10,16,0) 100%)',
       }}>
         <div style={{
-          fontFamily: '"Bebas Neue", sans-serif',
+          fontFamily: 'Vazirmatn, sans-serif',
           fontSize: 10.5, color: '#C9A24C',
           letterSpacing: '0.4em', marginBottom: 10,
-        }}>VISIT US</div>
+        }}>دیدار از ما</div>
         <div style={{
           fontFamily: 'Vazirmatn, sans-serif', fontSize: 18,
           color: '#F5EBE0', fontWeight: 300, lineHeight: 1.5,
@@ -349,7 +345,7 @@ function ShowroomVisit() {
           </div>
           <div style={{ textAlign: 'left' }}>
             <div style={{ fontSize: 10, color: 'rgba(245,235,224,0.5)', letterSpacing: '0.1em', marginBottom: 4 }}>تماس</div>
-            <div style={{ fontSize: 14, color: '#F5EBE0', fontWeight: 500, fontFamily: '"Bebas Neue", sans-serif', letterSpacing: '0.08em' }}>۰۲۱ ۵۵ ۸۸ ۲۲ ۴۴</div>
+            <div style={{ fontSize: 14, color: '#F5EBE0', fontWeight: 500, fontFamily: 'Vazirmatn, sans-serif', letterSpacing: '0.08em' }}>۰۲۱ ۵۵ ۸۸ ۲۲ ۴۴</div>
           </div>
         </div>
       </div>
