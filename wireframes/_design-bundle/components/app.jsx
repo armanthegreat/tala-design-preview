@@ -125,7 +125,7 @@ function DynamicIsland() {
 }
 
 // ─── Phone frame wrapping the app ─────────────────────────────
-function PhoneFrame({ children, dark }) {
+function PhoneFrame({ children, bottomBar, overlay, dark }) {
   return (
     <div style={{
       width: 402, height: 874, borderRadius: 56, overflow: 'hidden',
@@ -138,6 +138,8 @@ function PhoneFrame({ children, dark }) {
       <div style={{ position: 'absolute', inset: 0, overflow: 'auto' }}>
         {children}
       </div>
+      {bottomBar}
+      {overlay}
       {/* home indicator */}
       <div style={{
         position: 'absolute', bottom: 8, left: 0, right: 0,
@@ -177,16 +179,10 @@ function App() {
       padding: '40px 20px',
       fontFamily: 'Vazirmatn, system-ui, sans-serif',
     }}>
-      <PhoneFrame dark={dark}>
-        <div style={{ minHeight: '100%' }}>
-          {active === 'showroom'  && <ShowroomScreen layout={t.showroomLayout} />}
-          {active === 'price'     && <PriceBoardScreen />}
-          {active === 'gallery'   && <GalleryScreen onOpenPost={setOpenPost} />}
-          {active === 'favorites' && <FavoritesScreen />}
-          {active === 'profile'   && <ProfileScreen />}
-        </div>
-        {!openPost && <BottomNav active={active} onChange={setActive} />}
-        {openPost && (
+      <PhoneFrame
+        dark={dark}
+        bottomBar={!openPost && <BottomNav active={active} onChange={setActive} />}
+        overlay={openPost && (
           <StoryViewer
             post={openPost}
             imageIdx={1}
@@ -194,6 +190,14 @@ function App() {
             onClose={() => setOpenPost(null)}
           />
         )}
+      >
+        <div style={{ minHeight: '100%' }}>
+          {active === 'showroom'  && <ShowroomScreen layout={t.showroomLayout} />}
+          {active === 'price'     && <PriceBoardScreen />}
+          {active === 'gallery'   && <GalleryScreen onOpenPost={setOpenPost} />}
+          {active === 'favorites' && <FavoritesScreen />}
+          {active === 'profile'   && <ProfileScreen />}
+        </div>
       </PhoneFrame>
 
       <TweaksPanel>
